@@ -123,6 +123,6 @@ STATIC_URL = '/static/'
 
 
 REST_FRAMEWORK = {
-    'DEFAUL_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
