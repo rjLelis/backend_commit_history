@@ -6,7 +6,7 @@ from .serializers import RepositorySerializer
 
 
 class RepositoryListCreate(generics.ListCreateAPIView):
-    queryset = Repository.objects.all()
+    queryset = Repository.objects.order_by('created_at').all()
     serializer_class = RepositorySerializer
 
 
