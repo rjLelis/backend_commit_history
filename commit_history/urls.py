@@ -19,6 +19,6 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('repositories/', include('repository.urls')),
+    path('api/', include('repository.urls')),
     path('', views.home, name='home')
 ]
