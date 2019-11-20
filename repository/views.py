@@ -22,7 +22,7 @@ class RepositoryListCreate(generics.ListCreateAPIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        repo, created = Repository.objects.get_or_create(
+        _, created = Repository.objects.get_or_create(
             name=name,
             description=description
         )
