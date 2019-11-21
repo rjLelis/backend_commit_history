@@ -20,5 +20,5 @@ class Repository(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
 
-    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+    owner = models.ForeignKey(Owner, related_name='repositories', on_delete=models.CASCADE)
 
