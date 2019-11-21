@@ -1,7 +1,5 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
-
-from .models import Repository
+from .models import Repository, Owner
 
 
 class RepositorySerializer(serializers.ModelSerializer):
@@ -13,10 +11,10 @@ class RepositorySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description', 'owner', )
 
 
-class UserSerializer(serializers.ModelSerializer):
+class OwnerSerializer(serializers.ModelSerializer):
 
     repositories = serializers.HyperlinkedRelatedField(
         many=True, view_name='repository-detail', read_only=True)
     class Meta:
-        model = User
-        fields = ('username', 'email', 'repositories', )
+        model = Owner
+        fields = ('name', 'email', 'repositories', )

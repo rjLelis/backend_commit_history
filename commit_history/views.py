@@ -6,6 +6,11 @@ from rest_framework.decorators import api_view
 @api_view(['GET'])
 def home(request):
     return Response({
-        'GET/POST repositories': reverse('repository-list', request=request),
+        'GET/POST repositories':
+            reverse('repository-list-create'),
+        'GET repository by id':
+            reverse('repository-detail', kwargs={'pk': 0 }),
+        'POST owner':
+            reverse('owner-list-create')
     })
 

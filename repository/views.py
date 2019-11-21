@@ -4,7 +4,8 @@ from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import status
 from .models import Repository, Owner
-from .serializers import RepositorySerializer
+from .serializers import RepositorySerializer, OwnerSerializer
+
 
 
 class RepositoryListCreate(generics.ListCreateAPIView):
@@ -61,3 +62,14 @@ class RepositoryListCreate(generics.ListCreateAPIView):
 class RepositoryDetail(generics.RetrieveAPIView):
     queryset = Repository.objects.all()
     serializer_class = RepositorySerializer
+
+
+
+class OwnerListCreate(generics.ListCreateAPIView):
+    queryset = Owner.objects.all()
+    serializer_class = OwnerSerializer
+
+
+class OwnerDetail(generics.RetrieveAPIView):
+    queryset = Owner.objects.all()
+    serializer_class = OwnerSerializer
