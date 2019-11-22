@@ -8,6 +8,8 @@ urlpatterns = [
         name='repository-detail'),
     path('owner', views.OwnerListCreate.as_view(),
         name='owner-list-create'),
-    path('owner/<int:pk>', views.OwnerDetail.as_view(),
-        name='owner-detail')
+    path('owner/<str:username>', views.owner_detail,
+        name='owner-detail'),
+    path('owner/<str:username>/repositories', views.repositories_by_owner,
+        name='repositories-by-owner')
 ]

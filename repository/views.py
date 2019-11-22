@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 from rest_framework import generics
 from rest_framework import status
 from .models import Repository, Owner
@@ -64,12 +65,50 @@ class RepositoryDetail(generics.RetrieveAPIView):
     serializer_class = RepositorySerializer
 
 
-
 class OwnerListCreate(generics.ListCreateAPIView):
     queryset = Owner.objects.all()
     serializer_class = OwnerSerializer
 
 
-class OwnerDetail(generics.RetrieveAPIView):
-    queryset = Owner.objects.all()
-    serializer_class = OwnerSerializer
+@api_view(['GET'])
+def repositories_by_owner(request, username):
+    try:
+        owner = Owner.objects.get(username=username)
+        owner_repositories = owner.repositories.all()
+        paginator = PageNumberPagination()
+        paginator.page_number = 10
+        result_page = paginator.paginate_queryset(owner_repositories, request)
+        repositories_serialized = RepositorySerializer(
+            result_page,
+            many=True
+        )
+
+        return paginator.get_paginated_response(
+            repositories_serialized.data
+        )
+
+    except Owner.DoesNotExist:
+        return Response({
+            'message': 'owner not found'
+        },
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+
+@api_view(['GET'])
+def owner_detail(request, username):
+    try:
+        owner = Owner.objects.get(username=username)
+    except Owner.DoesNotExist:
+        return Response({
+            'message': 'owner not found'
+        },
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+    owner_serialized = OwnerSerializer(owner, context={'request': request})
+    return Response(
+        owner_serialized.data,
+        status=status.HTTP_200_OK
+    )
+

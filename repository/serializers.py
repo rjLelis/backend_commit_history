@@ -17,4 +17,4 @@ class OwnerSerializer(serializers.ModelSerializer):
         many=True, view_name='repository-detail', read_only=True)
     class Meta:
         model = Owner
-        fields = ('name', 'email', 'repositories', )
+        fields = ('username', 'email', 'repositories', )
