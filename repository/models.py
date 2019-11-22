@@ -3,7 +3,7 @@ from django.db import models
 
 class Owner(models.Model):
 
-    name = models.CharField(max_length=50, unique=True)
+    username = models.CharField(max_length=50, unique=True)
 
     email = models.EmailField()
 
@@ -20,5 +20,9 @@ class Repository(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
 
-    owner = models.ForeignKey(Owner, related_name='repositories', on_delete=models.CASCADE)
+    owner = models.ForeignKey(
+        Owner,
+        related_name='repositories',
+        on_delete=models.CASCADE
+    )
 
